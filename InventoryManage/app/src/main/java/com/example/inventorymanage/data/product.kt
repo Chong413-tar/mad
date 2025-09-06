@@ -1,8 +1,5 @@
 package com.example.inventorymanage.data
 
-import android.R
-import android.nfc.tech.NfcBarcode
-
 data class Product(
     val category: String ="",
     val name: String = "",

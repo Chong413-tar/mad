@@ -1,15 +1,27 @@
 package com.example.inventorymanage.ProductManage
 
-import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.ArrowBack
-import androidx.compose.material3.*
+import androidx.compose.material.icons.filled.Edit
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.CenterAlignedTopAppBar
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.FloatingActionButton
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
@@ -23,7 +35,7 @@ import com.example.inventorymanage.ui.theme.InventoryManageTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ProductScreen(products: List<Product>) {
+fun ProductAddPage(product: Product){
     Scaffold(
         topBar = {
             CenterAlignedTopAppBar(
@@ -61,19 +73,30 @@ fun ProductScreen(products: List<Product>) {
                 )
             }
         }
-    ) { innerPadding ->
+    ){ innerPadding ->
         Column(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(innerPadding)
+                .padding(16.dp),
+            verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
-            LazyColumn(
-                modifier = Modifier.fillMaxSize(),
-                contentPadding = PaddingValues(16.dp),
-                verticalArrangement = Arrangement.spacedBy(12.dp)
-            ) {
-                items(products) { product ->
-                    ProductCard(product = product)
+            Text(
+                text = "Add New Product",
+                fontSize = 25.sp,
+            )
+            Card (
+                modifier = Modifier.fillMaxWidth(),
+                shape = RoundedCornerShape(12.dp),
+                elevation = CardDefaults.cardElevation(4.dp),
+                colors = CardDefaults.cardColors(
+                    containerColor = colorResource(R.color.blue)
+                )
+            ){
+                Column (
+
+                ){
+
                 }
             }
         }
@@ -81,64 +104,26 @@ fun ProductScreen(products: List<Product>) {
 }
 
 @Composable
-fun ProductCard(product: Product) {
-    Card(
-        modifier = Modifier.fillMaxWidth(),
-        shape = RoundedCornerShape(12.dp),
-        elevation = CardDefaults.cardElevation(6.dp)
-    ) {
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(16.dp),
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            Column {
-                Text(
-                    text = product.name,
-                    fontSize = 20.sp,
-                    fontWeight = FontWeight.Bold
-                )
-                Spacer(modifier = Modifier.height(4.dp))
-                Text(
-                    text = "Unit: ${product.productUnit}",
-                    fontSize = 16.sp
-                )
-            }
+fun ProductEditField(
+    label: String,
+    value: String,
+    onValueChange:
+){
 
-            Spacer(modifier = Modifier.weight(1f)) // 推到最右边
-
-            Text(
-                text = "Cost Price: RM${String.format("%.2f", product.costPrice)}",
-                fontSize = 16.sp,
-                color = Color.Gray
-            )
-        }
-    }
 }
 
-@Preview(showBackground = true)
+@Preview(showBackground = true, showSystemUi = true)
 @Composable
-fun ProductScreenPreview() {
+fun ProductAddPreview() {
     InventoryManageTheme {
-        ProductScreen(
-            products = listOf(
-                Product(
-                    name = "Coca Cola",
-                    costPrice = 1.5,
-                    salePrice = 2.0,
-                    productUnit = "24",
-                    barcode = "1234567890123",
-                    category = "Drink"
-                ),
-                Product(
-                    name = "Pepsi",
-                    costPrice = 1.4,
-                    salePrice = 2.0,
-                    productUnit = "24",
-                    barcode = "9876543210987",
-                    category = "Drink"
-                )
+        ProductAddPage(
+            product = Product(
+                name = "Coca Cola",
+                costPrice = 1.50,
+                salePrice = 2.00,
+                productUnit = "24",
+                barcode = "1234567890123",
+                category = "Drink"
             )
         )
     }
