@@ -35,16 +35,13 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.inventorymanage.ui.theme.InventoryManageTheme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            InventoryManageTheme {
                 MainScreen()
-            }
         }
     }
 }
@@ -128,7 +125,6 @@ fun MenuCard(title: String, imageRes: Int, cardcolor: Color, modifier: Modifier 
 @Preview(showBackground = true)
 @Composable
 fun GreetingPreview() {
-    InventoryManageTheme {
         MainScreen()
-    }
+
 }

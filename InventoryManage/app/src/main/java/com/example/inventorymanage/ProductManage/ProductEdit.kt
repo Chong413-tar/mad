@@ -17,7 +17,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.inventorymanage.R
 import com.example.inventorymanage.data.Product
-import com.example.inventorymanage.ui.theme.InventoryManageTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -202,7 +201,6 @@ fun RowDetailEditable(
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
 fun ProductEditPreview() {
-    InventoryManageTheme {
         ProductEditScreen(
             product = Product(
                 name = "Coca Cola",
@@ -215,6 +213,5 @@ fun ProductEditPreview() {
             onCancel = {},
             onConfirm = {}
         )
-    }
 }
 

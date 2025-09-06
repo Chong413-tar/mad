@@ -2,10 +2,13 @@ package com.example.inventorymanage.ProductManage
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
@@ -18,10 +21,20 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.LocalTextStyle
+import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextField
+import androidx.compose.material3.TextFieldColors
+import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
@@ -31,11 +44,16 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.inventorymanage.R
 import com.example.inventorymanage.data.Product
-import com.example.inventorymanage.ui.theme.InventoryManageTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ProductAddPage(product: Product){
+    var name by remember { mutableStateOf(product.name) }
+    var category by remember { mutableStateOf(product.category) }
+    var unit by remember { mutableStateOf(product.productUnit) }
+    var costPrice by remember { mutableStateOf(product.costPrice.toString()) }
+    var salePrice by remember { mutableStateOf(product.salePrice.toString()) }
+
     Scaffold(
         topBar = {
             CenterAlignedTopAppBar(
@@ -94,8 +112,10 @@ fun ProductAddPage(product: Product){
                 )
             ){
                 Column (
-
+                    modifier = Modifier.padding(18.dp)
                 ){
+                    NewProductField(label = "Category", value =  product.category) { category = it }
+                    NewProductField(label = "Name", value = product.name) { name = it }
 
                 }
             }
@@ -104,18 +124,48 @@ fun ProductAddPage(product: Product){
 }
 
 @Composable
-fun ProductEditField(
+fun NewProductField(
     label: String,
     value: String,
-    onValueChange:
-){
+    onValueChange: (String) -> Unit
+) {
+    var text by remember { mutableStateOf(value) }
 
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(vertical = 4.dp),
+        horizontalArrangement = Arrangement.SpaceBetween,
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Text(
+            text = "$label:",
+            fontWeight = FontWeight.Bold,
+            fontSize = 20.sp
+        )
+
+    }
+    TextField(
+        value = text,
+        onValueChange = {
+            text = it
+            onValueChange(it)
+        },
+        colors = TextFieldDefaults.colors(),
+        singleLine = true,
+        modifier = Modifier.width(160.dp).height(30.dp),
+        textStyle = LocalTextStyle.current.copy(fontWeight = FontWeight.Bold),
+        placeholder = {
+            Text(text = value, color = Color.Gray, fontSize = 25.sp)
+        },
+        shape = RoundedCornerShape(20.dp)
+    )
 }
+
 
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
 fun ProductAddPreview() {
-    InventoryManageTheme {
         ProductAddPage(
             product = Product(
                 name = "Coca Cola",
@@ -126,5 +176,4 @@ fun ProductAddPreview() {
                 category = "Drink"
             )
         )
-    }
 }
