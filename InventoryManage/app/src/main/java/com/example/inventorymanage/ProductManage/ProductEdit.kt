@@ -46,7 +46,7 @@ fun ProductEditScreen(
                 title = {
                     Text(
                         text = "Edit Product",
-                        fontSize = 28.sp,
+                        fontSize = 30.sp,
                         fontWeight = FontWeight.Bold,
                     )
                 },
@@ -193,7 +193,8 @@ fun RowDetailEditable(
                     imageVector = Icons.Default.Edit,
                     contentDescription = "Edit"
                 )
-            }
+            },
+            shape = RoundedCornerShape(20.dp)
         )
     }
 }
